@@ -29,6 +29,7 @@ namespace ServerAPI
 
         public override void OnInspectorGUI()
         {
+            EditorGUI.BeginChangeCheck();
             using (new BoxScope())
             {
                 CentralizedLabel("Server settings");
@@ -52,6 +53,9 @@ namespace ServerAPI
                     }
                 }
             }
+
+            if (EditorGUI.EndChangeCheck())
+                EditorUtility.SetDirty(target);
         }
 
         private void DrawFakeServer()
@@ -171,6 +175,8 @@ namespace ServerAPI
 
             m_Settings.m_Servers = servers.ToArray();
             toggleServerView = toggles.ToArray();
+
+            EditorUtility.SetDirty(target);
         }
 
         private void AddServer()
@@ -187,6 +193,8 @@ namespace ServerAPI
             List<bool> toggles = new List<bool>(toggleServerView);
             toggles.Add(true);
             toggleServerView = toggles.ToArray();
+
+            EditorUtility.SetDirty(target);
         }
 
         private void CentralizedLabel(string text)

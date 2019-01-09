@@ -16,7 +16,7 @@ MonoBehaviour:
   - name: Local
     hostAddress: http://localhost:8080/
     wsAddress: http://localhost:8080
-  m_CurrentServer: 0
+  m_CurrentServerIndex: 0
   m_FakeServer: 1
   m_ResponseDelayMin: 0.5
   m_ResponseDelayMax: 1
