@@ -51,15 +51,8 @@ namespace ServerAPI
                 {
                     if (callback != null)
                     {
-                        if (typeof(T) == typeof(string))
-                        {
-                            callback((T)(object)response, result);
-                        }
-                        else
-                        {
-                            T obj = JsonConvert.DeserializeObject<T>(response);
-                            callback(obj, result);
-                        }
+                        T obj = JsonConvert.DeserializeObject<T>(response);
+                        callback(obj, result);
                     }
                 }
                 else

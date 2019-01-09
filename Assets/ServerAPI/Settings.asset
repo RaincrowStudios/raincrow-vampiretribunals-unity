@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Servers:
   - name: Local
-    hostAddress: http://localhost:8080/api/
+    hostAddress: http://localhost:8080/
     wsAddress: http://localhost:8080
   m_CurrentServer: 0
   m_FakeServer: 1
