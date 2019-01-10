@@ -10,7 +10,7 @@ public class UIScalable : MonoBehaviour
     private int m_TweenId;
 
     public bool isComplete { get { return m_IsComplete; } }
-    public new RectTransform transform { get { return m_Transform; } }
+    public new RectTransform transform { get { if(m_Transform == null) m_Transform = this.GetComponent<RectTransform>(); return m_Transform; } }
 
     private void Awake()
     {
@@ -45,6 +45,11 @@ public class UIScalable : MonoBehaviour
     public void Scale(Vector2 scale, float duration)
     {
         Scale(scale, duration, null, LeanTweenType.linear);
+    }
+
+    public void Scale(float scale, float duration, System.Action onComplete, LeanTweenType easeType)
+    {
+        Scale(new Vector2(scale, scale), duration, onComplete, easeType);
     }
 
     public void Scale(float scale, float duration, System.Action onComplete)

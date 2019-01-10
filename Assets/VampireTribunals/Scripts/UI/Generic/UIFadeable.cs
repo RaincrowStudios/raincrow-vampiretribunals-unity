@@ -10,7 +10,7 @@ public class UIFadeable : MonoBehaviour
     private int m_TweenId;
 
     public bool isComplete { get { return m_IsComplete; } }
-    public CanvasGroup canvasGroup { get { return m_CanvasGroup; } }
+    public CanvasGroup canvasGroup { get { if (m_CanvasGroup == null) m_CanvasGroup = this.GetComponent<CanvasGroup>(); return m_CanvasGroup; } }
 
     private void Awake()
     {
@@ -23,12 +23,16 @@ public class UIFadeable : MonoBehaviour
         m_IsComplete = false;
         LeanTween.cancel(m_TweenId);
         m_TweenId = LeanTween.value(m_CanvasGroup.alpha, alpha, duration)
-            .setEase(easeType)
+            .setOnUpdate((float t) =>
+            {
+                m_CanvasGroup.alpha = t;
+            })
             .setOnComplete(() =>
             {
                 m_IsComplete = true;
                 if (onComplete != null) onComplete.Invoke();
             })
+            .setEase(easeType)
             .uniqueId;
     }
 

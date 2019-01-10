@@ -8,9 +8,9 @@ namespace ServerAPI
 {
     public class ManagerServer : IManager
     {
-        public IEnumerator RequestRoutine(string url, string data, string method, bool requireToken, bool requireWssToken, Action<string, int> callback)
+        public IEnumerator RequestRoutine(string address, string endpoint, string data, string method, bool requireToken, bool requireWssToken, Action<string, int> callback)
         {
-            UnityWebRequest www = BakeRequest(url, data, method, requireToken, requireWssToken);
+            UnityWebRequest www = BakeRequest(address + endpoint, data, method, requireToken, requireWssToken);
             API.CallRequestEvent(www, data);
 
             // request
@@ -21,7 +21,7 @@ namespace ServerAPI
 
             if (www.isNetworkError)
             {
-                Debug.LogError(www.responseCode.ToString() + "\n" + url);
+                Debug.LogError(www.responseCode.ToString() + "\n" + endpoint);
                 if (callback != null)
                     callback("", (int)www.responseCode);
             }
@@ -34,17 +34,6 @@ namespace ServerAPI
 
         private UnityWebRequest BakeRequest(string endpoint, string data, string method, bool requireLoginToken, bool requiresWssToken)
         {
-            //// log it
-            //string sRequest = "==> BakeRequest for: " + endpoint;
-            //sRequest += "\n  endpoint: " + endpoint;
-            //sRequest += "\n  method: " + method;
-            //sRequest += "\n  data: " + data;
-            //sRequest += "\n  bRequiresLoginToken: " + requireLoginToken;
-            //sRequest += "\n  bRequiresWssToken: " + requiresWssToken;
-            //if (requireLoginToken) sRequest += "\n  loginToken: " + API.loginToken;
-            //if (requiresWssToken) sRequest += "\n  wssToken: " + API.wssToken;
-            //Debug.Log(sRequest);
-
             UnityWebRequest www;
             if (method == "GET")
             {

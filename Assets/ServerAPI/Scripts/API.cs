@@ -45,7 +45,7 @@ namespace ServerAPI
 
         public static void Request<T>(string endpoint, string data, string method, Action<T, int> callback = null, bool requireToken = true, bool requireWssToken = false)
         {
-            Instance.StartCoroutine(Instance.m_Manager.RequestRoutine(settings.hostAddres + endpoint, data, method, requireToken, requireWssToken, (response, result) =>
+            Instance.StartCoroutine(Instance.m_Manager.RequestRoutine(settings.hostAddres, endpoint, data, method, requireToken, requireWssToken, (response, result) =>
             {
                 if (result == 200)
                 {
@@ -77,22 +77,22 @@ namespace ServerAPI
 
         public static void GET<T>(string endpoint, string data, Action<T, int> callback = null, bool requireToken = true, bool requireWssToken = false)
         {
-            Request<T>(endpoint, data, "GET", callback = null, requireToken, requireWssToken);
+            Request<T>(endpoint, data, "GET", callback, requireToken, requireWssToken);
         }
 
         public static void PUT<T>(string endpoint, string data, Action<T, int> callback = null, bool requireToken = true, bool requireWssToken = false)
         {
-            Request<T>(endpoint, data, "PUT", callback = null, requireToken, requireWssToken);
+            Request<T>(endpoint, data, "PUT", callback, requireToken, requireWssToken);
         }
 
         public static void POST<T>(string endpoint, string data, Action<T, int> callback = null, bool requireToken = true, bool requireWssToken = false)
         {
-            Request<T>(endpoint, data, "POST", callback = null, requireToken, requireWssToken);
+            Request<T>(endpoint, data, "POST", callback, requireToken, requireWssToken);
         }
 
         public static void DELETE<T>(string endpoint, string data, Action<T, int> callback = null, bool requireToken = true, bool requireWssToken = false)
         {
-            Request<T>(endpoint, data, "DELETE", callback = null, requireToken, requireWssToken);
+            Request<T>(endpoint, data, "DELETE", callback, requireToken, requireWssToken);
         }
     }
 }

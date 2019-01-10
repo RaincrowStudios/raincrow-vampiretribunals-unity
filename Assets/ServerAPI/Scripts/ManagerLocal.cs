@@ -8,17 +8,17 @@ namespace ServerAPI
 {
     public class ManagerLocal : IManager
     {
-        public IEnumerator RequestRoutine(string endpoint, string data, string method, bool requireToken, bool requireWssToken, Action<string, int> callback)
+        public IEnumerator RequestRoutine(string address, string endpoint, string data, string method, bool requireToken, bool requireWssToken, Action<string, int> callback)
         {
             // just to log in monitor
-            UnityWebRequest www = BakeRequest(endpoint, data, method);
+            UnityWebRequest www = BakeRequest(address + method + "/" + endpoint, data, method);
             API.CallRequestEvent(www, data);
 
             //fake delay
             float responseDelay = UnityEngine.Random.Range(API.settings.m_ResponseDelayMin, API.settings.m_ResponseDelayMax);
             yield return new WaitForSecondsRealtime(responseDelay);
 
-            string response = LoadFile(endpoint);
+            string response = LoadFile(method + "/" + endpoint);
             API.CallOnResponseEvent(www, data, response);
 
             if (string.IsNullOrEmpty(response))
@@ -39,7 +39,7 @@ namespace ServerAPI
         
         public static string LoadFile(string path)
         {
-            TextAsset pText = Resources.Load<TextAsset>(path);
+            TextAsset pText = Resources.Load<TextAsset>("LocalAPI/" + path);
 
             string response = "";
             if (pText != null)

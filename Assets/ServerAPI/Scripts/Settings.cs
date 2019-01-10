@@ -48,7 +48,7 @@ namespace ServerAPI
 
 
         public ServerSetting currentServer { get { return m_Servers[m_CurrentServerIndex]; } }
-        public string hostAddres { get { return m_FakeServer ? "LocalAPI/" : currentServer.hostAddress; } }
-        public string wsAddres { get { return m_FakeServer ? "LocalAPI/" : currentServer.wsAddress; } }
+        public string hostAddres { get { return currentServer.hostAddress; } }
+        public string wsAddres { get { return currentServer.wsAddress; } }
     }
 }
