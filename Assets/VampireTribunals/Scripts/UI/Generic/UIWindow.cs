@@ -93,8 +93,8 @@ public abstract class UIWindow : MonoBehaviour
     protected virtual void HideAnimation(System.Action onComplete)
     {
         float duration = m_FadeComponent.canvasGroup.alpha;
-        m_FadeComponent.Alpha(0f, 0.25f * duration);
-        m_ScaleComponent.Scale(0f, 0.4f * duration, OnHideComplete);
+        m_FadeComponent.Alpha(0f, 0.25f * duration, OnHideComplete);
+        m_ScaleComponent.Scale(0f, 0.4f * duration);
     }
 
     /// <summary>
